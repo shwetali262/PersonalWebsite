@@ -44,23 +44,60 @@
   /**
    * Navbar links active state on scroll
    */
-  let navbarlinks = select('#navbar .scrollto', true)
-  const navbarlinksActive = () => {
-    let position = window.scrollY + 200
-    navbarlinks.forEach(navbarlink => {
-      if (!navbarlink.hash) return
-      let section = select(navbarlink.hash)
-      if (!section) return
-      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        navbarlink.classList.add('active')
-      } else {
-        navbarlink.classList.remove('active')
-      }
-    })
-  }
-  window.addEventListener('load', navbarlinksActive)
-  onscroll(document, navbarlinksActive)
+  // let navbarlinks = select('#navbar .scrollto', true)
+  // const navbarlinksActive = () => { 
+  //   debugger
+  //   let position = window.scrollY + 200
+  //   navbarlinks.forEach(navbarlink => {
+  //     debugger
+  //     if (!navbarlink.hash) return
+  //     let section = select(navbarlink.hash)
+  //     if (!section) return
+  //     if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+  //       debugger
+  //       navbarlink.classList.add('active')
+  //     } else {
+  //       navbarlink.classList.remove('active')
+  //     }
+  //   })
+  // }
+  // window.addEventListener('load', navbarlinksActive)
+  // onscroll(document, navbarlinksActive)
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the navbar element
+    debugger
+    const navbar = document.getElementById("navbar");
 
+    // Get all the nav-links inside the navbar
+    const navLinks = navbar.querySelectorAll(".nav-link");
+
+    // Loop through each link
+    navLinks.forEach(link => {
+        debugger
+        // Add an event listener for the 'click' event
+        link.addEventListener("click", function(event) {
+            
+            // Prevent the default action
+            event.preventDefault();
+
+            // Remove 'active' class from all links
+            navLinks.forEach(innerLink => {
+              debugger
+                innerLink.classList.remove("active");
+            });
+
+            // Add 'active' class to the clicked link
+            link.classList.add("active");
+
+            // Smooth scrolling to the target section
+            const targetSection = document.querySelector(link.getAttribute("href"));
+            window.scrollTo({
+                top: targetSection.offsetTop,
+                behavior: "smooth"
+            });
+        });
+    });
+});
   /**
    * Scrolls to an element with header offset
    */
@@ -75,7 +112,8 @@
   /**
    * Back to top button
    */
-  let backtotop = select('.back-to-top')
+  let 
+  backtotop = select('.back-to-top')
   if (backtotop) {
     const toggleBacktotop = () => {
       if (window.scrollY > 100) {
